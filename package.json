@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/shared/http/server.ts"
+    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/shared/http/server.ts",
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli",
+    "typeorm:migrate": "ts-node-dev ./node_modules/typeorm/cli migration:run -d ./src/shared/typeorm/data-source.ts"
   },
   "keywords": [],
   "author": "",

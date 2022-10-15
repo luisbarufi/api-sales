@@ -7,6 +7,7 @@ temp/
 coverage
 ormconfig.json
 dist
+scripts-typeorm.md
 
 uploads/*
 !uploads/.gitkeep
