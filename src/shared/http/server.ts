@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 
 import { routes } from './routes';
-import { AppDataSource } from './data-source';
+import { AppDataSource } from '../typeorm/data-source';
 import { errorMiddleware } from './middlewares/error';
 
 AppDataSource.initialize().then(() => {
