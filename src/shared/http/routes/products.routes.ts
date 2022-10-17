@@ -2,6 +2,8 @@ import { Router } from 'express';
 import { ProductsRepository } from '../../../modules/products/typeorm/repositories/ProductsRepository';
 import { CreateProductController } from '../../../modules/products/useCases/createProduct/CreateProductController';
 import { CreateProductUseCase } from '../../../modules/products/useCases/createProduct/CreateProductUseCase';
+import { DeleteProductController } from '../../../modules/products/useCases/deleteProduct/DeleteProductController';
+import { DeleteProductUseCase } from '../../../modules/products/useCases/deleteProduct/DeleteProductUseCase';
 import { ListProductsController } from '../../../modules/products/useCases/listProducts/ListProductsController';
 import { ListProductsUseCase } from '../../../modules/products/useCases/listProducts/ListProductsUseCase';
 import { ShowProductController } from '../../../modules/products/useCases/showProduct/ShowProductController';
@@ -28,6 +30,11 @@ const updateProductController = new UpdateProductController(
   updateProductUseCase,
 );
 
+const deleteProductUseCase = new DeleteProductUseCase(producstRepository);
+const deleteProductController = new DeleteProductController(
+  deleteProductUseCase,
+);
+
 productsRoutes.post('/', (req, res) => {
   return createProductController.handle(req, res);
 });
@@ -42,4 +49,8 @@ productsRoutes.get('/:id', (req, res) => {
 
 productsRoutes.put('/:id', (req, res) => {
   return updateProductController.handle(req, res);
+});
+
+productsRoutes.delete('/:id', (req, res) => {
+  return deleteProductController.handle(req, res);
 });

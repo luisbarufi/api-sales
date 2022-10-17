@@ -6,5 +6,6 @@ export interface IProductsRepository {
   save(data: ICreateProductDTO): Promise<void>;
   findByName(name: string): Promise<Product | null>;
   findById(id: string): Promise<Product | null>;
+  destroy(id: string): Promise<void>;
   list(): Promise<Product[]>;
 }

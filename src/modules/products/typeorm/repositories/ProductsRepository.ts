@@ -10,9 +10,6 @@ export class ProductsRepository implements IProductsRepository {
   constructor() {
     this.repository = AppDataSource.getRepository(Product);
   }
-  destroy(data: ICreateProductDTO): Promise<void> {
-    throw new Error('Method not implemented.');
-  }
 
   async create({ name, price, quantity }: ICreateProductDTO): Promise<void> {
     const product = this.repository.create({ name, price, quantity });
@@ -22,6 +19,11 @@ export class ProductsRepository implements IProductsRepository {
 
   async save({ id, name, price, quantity }: ICreateProductDTO): Promise<void> {
     await this.repository.save({ id, name, price, quantity });
+  }
+
+  async destroy(id: string): Promise<void> {
+    console.log(id);
+    await this.repository.delete({ id });
   }
 
   async list(): Promise<Product[]> {
