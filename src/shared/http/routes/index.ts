@@ -1,10 +1,8 @@
 import 'express-async-errors';
 
 import { Router } from 'express';
-import { AppError } from '../../errors/AppError';
+import { productsRoutes } from './products.routes';
 
-export const routes = Router();
+export const router = Router();
 
-routes.get('/', (req, res) => {
-  throw new AppError('Oops', 401);
-});
+router.use('/products', productsRoutes);
