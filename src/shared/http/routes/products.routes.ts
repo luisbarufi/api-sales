@@ -10,6 +10,7 @@ import { ShowProductController } from '../../../modules/products/useCases/showPr
 import { ShowProductUseCase } from '../../../modules/products/useCases/showProduct/ShowProductUseCase';
 import { UpdateProductController } from '../../../modules/products/useCases/updateProduct/UpdateProductController';
 import { UpdateProductUseCase } from '../../../modules/products/useCases/updateProduct/UpdateProductUseCase';
+import { validate } from '../middlewares/validation';
 
 export const productsRoutes = Router();
 const producstRepository = new ProductsRepository();
@@ -35,7 +36,13 @@ const deleteProductController = new DeleteProductController(
   deleteProductUseCase,
 );
 
-productsRoutes.post('/', (req, res) => {
+const schemaProduct = {
+  name: { required: 'Name is required' },
+  // price: { type: 'decimal' },
+  quantity: { type: 'int' },
+};
+
+productsRoutes.post('/', validate(schemaProduct), (req, res) => {
   return createProductController.handle(req, res);
 });
 
