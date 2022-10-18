@@ -38,7 +38,7 @@ const deleteProductController = new DeleteProductController(
 
 const schemaProduct = {
   name: { required: 'Name is required' },
-  // price: { type: 'decimal' },
+  price: { type: 'decimal' },
   quantity: { type: 'int' },
 };
 
@@ -54,7 +54,7 @@ productsRoutes.get('/:id', (req, res) => {
   return showProductController.handle(req, res);
 });
 
-productsRoutes.put('/:id', (req, res) => {
+productsRoutes.put('/:id', validate(schemaProduct), (req, res) => {
   return updateProductController.handle(req, res);
 });
 
