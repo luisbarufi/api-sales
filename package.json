@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/shared/http/server.ts",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli",
-    "typeorm:migrate": "ts-node-dev ./node_modules/typeorm/cli migration:run -d ./src/shared/typeorm/data-source.ts"
+    "typeorm": "typeorm-ts-node-commonjs",
+    "typeorm:migrate": "typeorm-ts-node-commonjs -d ./src/shared/typeorm/data-source.ts migration:run",
+    "typeorm:rollback": "typeorm-ts-node-commonjs -d ./src/shared/typeorm/data-source.ts migration:revert"
   },
   "keywords": [],
   "author": "",
