@@ -12,6 +12,9 @@ import { UpdateProductController } from '../../../modules/products/useCases/upda
 import { UpdateProductUseCase } from '../../../modules/products/useCases/updateProduct/UpdateProductUseCase';
 import { validateRequestSchema } from '../middlewares/validate-request-schema';
 import { createProductSchema } from '../schema/create-product-schema';
+import { deleteProductSchema } from '../schema/delete-product-schema';
+import { showProductSchema } from '../schema/show-product-schema';
+import { updateProductSchema } from '../schema/update-product-schema';
 
 export const productsRoutes = Router();
 const producstRepository = new ProductsRepository();
@@ -50,14 +53,29 @@ productsRoutes.get('/', (req, res) => {
   return listProductController.handle(req, res);
 });
 
-productsRoutes.get('/:id', (req, res) => {
-  return showProductController.handle(req, res);
-});
+productsRoutes.get(
+  '/:id',
+  showProductSchema,
+  validateRequestSchema,
+  (req: Request, res: Response) => {
+    return showProductController.handle(req, res);
+  },
+);
 
-productsRoutes.put('/:id', (req, res) => {
-  return updateProductController.handle(req, res);
-});
+productsRoutes.put(
+  '/:id',
+  updateProductSchema,
+  validateRequestSchema,
+  (req: Request, res: Response) => {
+    return updateProductController.handle(req, res);
+  },
+);
 
-productsRoutes.delete('/:id', (req, res) => {
-  return deleteProductController.handle(req, res);
-});
+productsRoutes.delete(
+  '/:id',
+  deleteProductSchema,
+  validateRequestSchema,
+  (req: Request, res: Response) => {
+    return deleteProductController.handle(req, res);
+  },
+);
