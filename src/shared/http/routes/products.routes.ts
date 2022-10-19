@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Request, Response, Router } from 'express';
 import { ProductsRepository } from '../../../modules/products/typeorm/repositories/ProductsRepository';
 import { CreateProductController } from '../../../modules/products/useCases/createProduct/CreateProductController';
 import { CreateProductUseCase } from '../../../modules/products/useCases/createProduct/CreateProductUseCase';
@@ -10,7 +10,8 @@ import { ShowProductController } from '../../../modules/products/useCases/showPr
 import { ShowProductUseCase } from '../../../modules/products/useCases/showProduct/ShowProductUseCase';
 import { UpdateProductController } from '../../../modules/products/useCases/updateProduct/UpdateProductController';
 import { UpdateProductUseCase } from '../../../modules/products/useCases/updateProduct/UpdateProductUseCase';
-import { validate } from '../middlewares/validation';
+import { validateRequestSchema } from '../middlewares/validate-request-schema';
+import { createProductSchema } from '../schema/create-product-schema';
 
 export const productsRoutes = Router();
 const producstRepository = new ProductsRepository();
@@ -36,15 +37,14 @@ const deleteProductController = new DeleteProductController(
   deleteProductUseCase,
 );
 
-const schemaProduct = {
-  name: { required: 'Name is required' },
-  price: { type: 'decimal' },
-  quantity: { type: 'int' },
-};
-
-productsRoutes.post('/', validate(schemaProduct), (req, res) => {
-  return createProductController.handle(req, res);
-});
+productsRoutes.post(
+  '/',
+  createProductSchema,
+  validateRequestSchema,
+  (req: Request, res: Response) => {
+    return createProductController.handle(req, res);
+  },
+);
 
 productsRoutes.get('/', (req, res) => {
   return listProductController.handle(req, res);
@@ -54,7 +54,7 @@ productsRoutes.get('/:id', (req, res) => {
   return showProductController.handle(req, res);
 });
 
-productsRoutes.put('/:id', validate(schemaProduct), (req, res) => {
+productsRoutes.put('/:id', (req, res) => {
   return updateProductController.handle(req, res);
 });
 
