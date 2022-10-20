@@ -18,3 +18,9 @@ export class NotFoundError extends AppError {
     super(message, 404);
   }
 }
+
+export class UnauThorizedError extends AppError {
+  constructor(message: string) {
+    super(message, 400);
+  }
+}
