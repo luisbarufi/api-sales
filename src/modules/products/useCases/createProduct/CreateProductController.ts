@@ -7,12 +7,8 @@ export class CreateProductController {
   async handle(req: Request, res: Response): Promise<Response> {
     const { name, price, quantity } = req.body;
 
-    try {
-      await this.createProductUseCase.execute({ name, price, quantity });
+    await this.createProductUseCase.execute({ name, price, quantity });
 
-      return res.status(201).send();
-    } catch (err) {
-      return res.status(400).json({ message: err.message });
-    }
+    return res.status(201).send();
   }
 }
