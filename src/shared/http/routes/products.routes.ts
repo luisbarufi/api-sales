@@ -11,10 +11,10 @@ import { ShowProductUseCase } from '../../../modules/products/useCases/showProdu
 import { UpdateProductController } from '../../../modules/products/useCases/updateProduct/UpdateProductController';
 import { UpdateProductUseCase } from '../../../modules/products/useCases/updateProduct/UpdateProductUseCase';
 import { validateRequestSchema } from '../middlewares/validate-request-schema';
-import { createProductSchema } from '../schema/create-product-schema';
-import { deleteProductSchema } from '../schema/delete-product-schema';
-import { showProductSchema } from '../schema/show-product-schema';
-import { updateProductSchema } from '../schema/update-product-schema';
+import { createProductSchema } from '../schema/product/create-product-schema';
+import { deleteProductSchema } from '../schema/product/delete-product-schema';
+import { showProductSchema } from '../schema/product/show-product-schema';
+import { updateProductSchema } from '../schema/product/update-product-schema';
 
 export const productsRoutes = Router();
 const producstRepository = new ProductsRepository();
