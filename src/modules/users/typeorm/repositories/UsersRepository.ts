@@ -34,4 +34,10 @@ export class UsersRepository implements IUsersRepository {
 
     return userEmail as User;
   }
+
+  async list(): Promise<User[]> {
+    const users = await this.repository.find();
+
+    return users;
+  }
 }
