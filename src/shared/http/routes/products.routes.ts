@@ -10,6 +10,7 @@ import { ShowProductController } from '../../../modules/products/useCases/showPr
 import { ShowProductUseCase } from '../../../modules/products/useCases/showProduct/ShowProductUseCase';
 import { UpdateProductController } from '../../../modules/products/useCases/updateProduct/UpdateProductController';
 import { UpdateProductUseCase } from '../../../modules/products/useCases/updateProduct/UpdateProductUseCase';
+import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 import { validateRequestSchema } from '../middlewares/validate-request-schema';
 import { createProductSchema } from '../schema/product/create-product-schema';
 import { deleteProductSchema } from '../schema/product/delete-product-schema';
@@ -42,6 +43,7 @@ const deleteProductController = new DeleteProductController(
 
 productsRoutes.post(
   '/',
+  ensureAuthenticated,
   createProductSchema,
   validateRequestSchema,
   (req: Request, res: Response) => {
@@ -49,12 +51,13 @@ productsRoutes.post(
   },
 );
 
-productsRoutes.get('/', (req, res) => {
+productsRoutes.get('/', ensureAuthenticated, (req, res) => {
   return listProductController.handle(req, res);
 });
 
 productsRoutes.get(
   '/:id',
+  ensureAuthenticated,
   showProductSchema,
   validateRequestSchema,
   (req: Request, res: Response) => {
@@ -64,6 +67,7 @@ productsRoutes.get(
 
 productsRoutes.put(
   '/:id',
+  ensureAuthenticated,
   updateProductSchema,
   validateRequestSchema,
   (req: Request, res: Response) => {
@@ -73,6 +77,7 @@ productsRoutes.put(
 
 productsRoutes.delete(
   '/:id',
+  ensureAuthenticated,
   deleteProductSchema,
   validateRequestSchema,
   (req: Request, res: Response) => {

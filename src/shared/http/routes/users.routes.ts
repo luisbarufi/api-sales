@@ -4,6 +4,7 @@ import { CreateUserController } from '../../../modules/users/useCases/createUser
 import { CreateUserUseCase } from '../../../modules/users/useCases/createUser/CreateUserUseCase';
 import { ListUsersController } from '../../../modules/users/useCases/listUsers/ListUsersController';
 import { ListUsersUseCase } from '../../../modules/users/useCases/listUsers/ListUsersUseCase';
+import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 import { validateRequestSchema } from '../middlewares/validate-request-schema';
 import { createUserSchema } from '../schema/user/create-user-schema';
 
@@ -18,6 +19,7 @@ const listUsersController = new ListUsersController(listUsersUseCase);
 
 usersRoutes.post(
   '/',
+  ensureAuthenticated,
   createUserSchema,
   validateRequestSchema,
   (req: Request, res: Response) => {
@@ -25,6 +27,6 @@ usersRoutes.post(
   },
 );
 
-usersRoutes.get('/', (req, res) => {
+usersRoutes.get('/', ensureAuthenticated, (req, res) => {
   return listUsersController.handle(req, res);
 });

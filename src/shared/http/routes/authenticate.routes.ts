@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Request, Response, Router } from 'express';
 import { UsersRepository } from '../../../modules/users/typeorm/repositories/UsersRepository';
 import { UsersTokensRepository } from '../../../modules/users/typeorm/repositories/UsersTokensRepository';
 import { AuthenticateUserController } from '../../../modules/users/useCases/authenticateUser/AuthenticateUserController';
